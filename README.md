@@ -3,7 +3,7 @@
 1.  **Clonar o Repositório:**
 
     ```bash
-    git clone [URL_DO_SEU_REPOSITORIO]
+    git clone https://github.com/PedrinHm/Streaming-Analytics-Pipeline.git
     cd Streaming-Analytics-Pipeline
     ```
 
