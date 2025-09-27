@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
     restart: always
@@ -48,3 +48,19 @@ services:
         psql -h postgres -U ${POSTGRES_USER} -d ${POSTGRES_DB} -f /scripts/2_inserts.sql &&
         psql -h postgres -U ${POSTGRES_USER} -d ${POSTGRES_DB} -f /scripts/3__cleanup.sql
       "
+
+  jupyter:
+    image: jupyter/base-notebook:latest
+    container_name: jupyter_notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./app:/home/jovyan/app
+      - ./dataset:/home/jovyan/dataset
+    env_file:
+      - .env
+    environment:
+      - JUPYTER_TOKEN=streaming123
+    depends_on:
+      - postgres
+      - app
