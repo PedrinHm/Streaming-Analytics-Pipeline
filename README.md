@@ -21,15 +21,6 @@
     docker-compose up -d
     ```
 
-7.  **Acessar a Análise:**
-    Para visualizar a análise de dados, acesse o Jupyter Notebook. Primeiro, obtenha o link de acesso com o token nos logs do container:
-
-    ```bash
-    docker-compose logs notebook
-    ```
-
-    Procure por uma URL parecida com `http://127.0.0.1:8888/lab?token=...`, copie e cole no seu navegador. O notebook com as análises estará na pasta `app/`.
-
 ## Estrutura do Projeto
 
   * `app/`: Contém os scripts Python (`ingestao.py`) e o Jupyter Notebook (`Visualizacao_de_Dados_Streaming.ipynb`) com as análises.
