@@ -28,3 +28,23 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  db_init:
+    image: postgres:14-alpine
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      app:
+        condition: service_completed_successfully
+    volumes:
+      - ./Scripts_SQL:/scripts
+    environment:
+      - PGPASSWORD=${POSTGRES_PASSWORD}
+    entrypoint: >
+      sh -c "
+        psql -h postgres -U ${POSTGRES_USER} -d ${POSTGRES_DB} -f /scripts/1_schema.sql &&
+        psql -h postgres -U ${POSTGRES_USER} -d ${POSTGRES_DB} -f /scripts/2_inserts.sql &&
+        psql -h postgres -U ${POSTGRES_USER} -d ${POSTGRES_DB} -f /scripts/3__cleanup.sql
+      "
